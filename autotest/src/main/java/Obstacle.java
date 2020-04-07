@@ -1,4 +1,4 @@
 public interface Obstacle {
-    void pass();
+    void getInfo();
     float getLimit();
 }

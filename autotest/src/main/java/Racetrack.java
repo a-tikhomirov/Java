@@ -23,7 +23,7 @@ public class Racetrack implements Obstacle{
         this.distance = distance;
     }
 
-    public void pass() {
+    public void getInfo() {
         System.out.printf("Passing an obstacle %s: distance = %.2f\n", name, distance);
     }
 

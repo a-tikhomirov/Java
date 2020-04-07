@@ -30,13 +30,13 @@ public class Main {
         sports[2] = new Sports(r);
 
         for (Obstacle[] o : obstacles){
-            o[0].pass();
+            o[0].getInfo();
             for (Sports s:sports){
                 if (!s.isOut()) s.setOut(!s.act.run(o[0].getLimit()));
             }
             System.out.println();
 
-            o[1].pass();
+            o[1].getInfo();
             for (Sports s:sports){
                 if (!s.isOut()) s.setOut(!s.act.jump(o[1].getLimit()));
             }

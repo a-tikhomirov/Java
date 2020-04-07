@@ -23,7 +23,7 @@ public class Wall implements Obstacle{
         this.height = height;
     }
 
-    public void pass() {
+    public void getInfo() {
         System.out.printf("Passing an obstacle %s: height = %.2f\n", name, height);
     }
 
