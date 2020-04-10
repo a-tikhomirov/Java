@@ -30,13 +30,18 @@ public class SearchTest extends BaseTest{
 
     @Test
     void checkWebinars() {
-        int postsCount = coursesPage.search.getWebinarsCount();
-        Assertions.assertTrue( postsCount > 180 && postsCount < 300);
+        int webinarsCount = coursesPage.search.getWebinarsCount();
+        Assertions.assertTrue( webinarsCount > 180 && webinarsCount < 300);
     }
 
     @Test
     void checkPosts() {
         Assertions.assertTrue(coursesPage.search.getForumsCount() != 350);
+    }
+
+    @Test
+    void checkTest() {
+        Assertions.assertTrue(coursesPage.search.getTestsCount() != 0);
     }
 
     @Test
