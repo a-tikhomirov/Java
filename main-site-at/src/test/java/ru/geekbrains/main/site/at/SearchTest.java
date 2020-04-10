@@ -14,7 +14,6 @@ public class SearchTest extends BaseTest{
         super.setUp();
         coursesPage = new CoursesPage(driver);
         driver.get("https://geekbrains.ru/career");
-        coursesPage.popUpClose();
         coursesPage.header.searchClick();
         coursesPage.search.enterSearchText("Java");
     }

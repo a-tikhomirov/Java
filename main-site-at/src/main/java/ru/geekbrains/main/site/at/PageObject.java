@@ -39,6 +39,7 @@ public class PageObject {
     }
 
     protected void buttonClick(WebElement button){
+        waitElementDisplayed(button);
         wait.until(ExpectedConditions.elementToBeClickable(button));
         button.click();
     }
