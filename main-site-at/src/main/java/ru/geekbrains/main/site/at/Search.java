@@ -20,11 +20,11 @@ public class Search extends PageObject{
     @FindBy(css = "[class=\"search-page-tabs\"] [data-tab=\"webinars\"] span")
     private WebElement labelWebinarsCount;
 
-    @FindBy(css = "[class=\"search-page-tabs\"] [data-tab=\"forums\"] span")
-    private WebElement labelForumsCount;
-
     @FindBy(css = "[class=\"search-page-tabs\"] [data-tab=\"blogs\"] span")
     private WebElement labelBlogsCount;
+
+    @FindBy(css = "[class=\"search-page-tabs\"] [data-tab=\"forums\"] span")
+    private WebElement labelForumsCount;
 
     @FindBy(css = "[class=\"search-page-tabs\"] [data-tab=\"tests\"] span")
     private WebElement labelTestsCount;

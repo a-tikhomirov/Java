@@ -35,13 +35,13 @@ public class SearchTest extends BaseTest{
     }
 
     @Test
-    void checkPosts() {
-        Assertions.assertTrue(coursesPage.search.getForumsCount() != 350);
+    void checkBlogs() {
+        Assertions.assertTrue(coursesPage.search.getBlogsCount() > 300);
     }
 
     @Test
-    void checkBlogs() {
-        Assertions.assertTrue(coursesPage.search.getBlogsCount() > 300);
+    void checkPosts() {
+        Assertions.assertTrue(coursesPage.search.getForumsCount() != 350);
     }
 
     @Test
