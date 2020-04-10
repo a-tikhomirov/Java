@@ -18,7 +18,7 @@ public class NavigationTest extends BaseTest{
     }
 
     @Test
-    void checkNavCourses() throws InterruptedException {
+    void checkNavCourses() {
         coursesPage.sidebar.buttonCoursesClick();
         checkHeader("Курсы");
         checkFooter();
