@@ -40,6 +40,11 @@ public class SearchTest extends BaseTest{
     }
 
     @Test
+    void checkBlogs() {
+        Assertions.assertTrue(coursesPage.search.getBlogsCount() > 300);
+    }
+
+    @Test
     void checkTest() {
         Assertions.assertTrue(coursesPage.search.getTestsCount() != 0);
     }

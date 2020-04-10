@@ -23,6 +23,9 @@ public class Search extends PageObject{
     @FindBy(css = "[class=\"search-page-tabs\"] [data-tab=\"forums\"] span")
     private WebElement labelForumsCount;
 
+    @FindBy(css = "[class=\"search-page-tabs\"] [data-tab=\"blogs\"] span")
+    private WebElement labelBlogsCount;
+
     @FindBy(css = "[class=\"search-page-tabs\"] [data-tab=\"tests\"] span")
     private WebElement labelTestsCount;
 
@@ -44,6 +47,8 @@ public class Search extends PageObject{
     public int getWebinarsCount() { return castToInt(labelWebinarsCount); }
 
     public int getForumsCount() { return castToInt(labelForumsCount); }
+
+    public int getBlogsCount() { return castToInt(labelBlogsCount); }
 
     public int getTestsCount() { return castToInt(labelTestsCount); }
 
