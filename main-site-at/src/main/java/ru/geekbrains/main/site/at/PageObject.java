@@ -1,5 +1,6 @@
 package ru.geekbrains.main.site.at;
 
+import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -39,13 +40,19 @@ public class PageObject {
     }
 
     protected void buttonClick(WebElement button){
-        waitElementDisplayed(button);
-        wait.until(ExpectedConditions.elementToBeClickable(button));
-        button.click();
+        if (button != null) {
+            waitElementDisplayed(button);
+            wait.until(ExpectedConditions.elementToBeClickable(button));
+            button.click();
+        }
     }
 
     protected String getElementText(WebElement element){
         wait.until(ExpectedConditions.visibilityOf(element));
         return element.getText();
+    }
+
+    protected int getElementTextToInt(WebElement element){
+        return Integer.valueOf(getElementText(element));
     }
 }

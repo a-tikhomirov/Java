@@ -1,5 +1,6 @@
 package ru.geekbrains.main.site.at;
 
+import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -27,5 +28,39 @@ public class Sidebar extends PageObject {
 
     public Sidebar(WebDriver driver) {
         super(driver);
+    }
+
+    public WebElement getButton(String name){
+        WebElement button = null;
+        switch (name){
+            case "Курсы": {
+                button = buttonCourses;
+                break;
+            }
+            case "Вебинары": {
+                button = buttonEvents;
+                break;
+            }
+            case "Форум": {
+                button = buttonTopics;
+                break;
+            }
+            case "Блог": {
+                button = buttonPosts;
+                break;
+            }
+            case "Тесты": {
+                button = buttonTests;
+                break;
+            }
+            case "Карьера": {
+                button = buttonCareer;
+                break;
+            }
+        }
+        if (button == null) {
+            throw new NotFoundException("Элемента " + name + " нет в классе " + getClass().getName());
+        }
+        return button;
     }
 }
