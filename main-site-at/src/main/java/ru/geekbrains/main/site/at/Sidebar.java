@@ -4,33 +4,34 @@ import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class Sidebar extends PageObject {
+    private Page page;
+
     @FindBy(css = "[class*=\"main-page-hidden\"] [href=\"/courses\"]")
-    public WebElement buttonCourses;
+    private WebElement buttonCourses;
 
     @FindBy(css = "[class*=\"main-page-hidden\"] [href=\"/events\"]")
-    public WebElement buttonEvents;
+    private WebElement buttonEvents;
 
     @FindBy(css = "[class*=\"main-page-hidden\"] [href=\"/topics\"]")
-    public WebElement buttonTopics;
+    private WebElement buttonTopics;
 
     @FindBy(css = "[class*=\"main-page-hidden\"] [href=\"/posts\"]")
-    public WebElement buttonPosts;
+    private WebElement buttonPosts;
 
     @FindBy(css = "[class*=\"main-page-hidden\"] [href=\"/tests\"]")
-    public WebElement buttonTests;
+    private WebElement buttonTests;
 
     @FindBy(css = "[class*=\"main-page-hidden\"] [href=\"/career\"]")
-    public WebElement buttonCareer;
+    private WebElement buttonCareer;
 
-    public Sidebar(WebDriver driver) {
+    protected Sidebar(WebDriver driver, Page page) {
         super(driver);
+        this.page = page;
     }
 
-    public WebElement getButton(String name){
+    public Page clickButton(String name){
         WebElement button = null;
         switch (name){
             case "Курсы": {
@@ -61,6 +62,7 @@ public class Sidebar extends PageObject {
         if (button == null) {
             throw new NotFoundException("Элемента " + name + " нет в классе " + getClass().getName());
         }
-        return button;
+        buttonClick(button);
+        return page;
     }
 }

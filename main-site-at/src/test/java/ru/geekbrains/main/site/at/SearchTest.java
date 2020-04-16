@@ -1,73 +1,55 @@
 package ru.geekbrains.main.site.at;
 
+import org.hamcrest.Matcher;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+import org.openqa.selenium.support.PageFactory;
 import ru.geekbrains.main.site.at.base.BaseTest;
-import static org.hamcrest.MatcherAssert.assertThat;
+
+import java.util.stream.Stream;
+
 import static org.hamcrest.Matchers.*;
 
 @DisplayName("Проверка результатов поиска по ключевому слову Java")
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class SearchTest extends BaseTest{
+    private Search searchPage;
 
     @BeforeAll
     protected void setUp(){
-        super.setUp();
-        coursesPage = new CoursesPage(driver);
+        super.setUpDriver();
         driver.get("https://geekbrains.ru/career");
-        coursesPage.buttonClick(coursesPage.header.buttonSearch);
-        coursesPage.search.inputSearch.sendKeys("Java");
+        searchPage = PageFactory.initElements(driver, Page.class)
+                .getHeader().clickSearch()
+                .enterSearchText("Java");
     }
 
-    @DisplayName("1 ==> Число профессий >= 2")
-    @Test
-    @Order(1)
-    void checkProfessions() {
-        assertThat(coursesPage.search.getLabelCounter("Профессии"), greaterThanOrEqualTo(2));
+    @DisplayName("Проверка 'элементов'")
+    @ParameterizedTest(name = "{index} ==> Блок \"{0}\" соответствует условию \"{1}\"")
+    @MethodSource("stringAndMatcherProvider")
+    void checkSideBarNavigation(String elementName, Matcher matcher){
+        searchPage.checkElement(elementName, matcher);
     }
 
-    @DisplayName("2 ==> Число курсов > 15")
-    @Test
-    @Order(2)
-    void checkCourses() {
-        assertThat(coursesPage.search.getLabelCounter("Курсы"), greaterThan(15));
-    }
-
-    @DisplayName("3 ==> Число вебинаров > 180 и < 300")
-    @Test
-    @Order(3)
-    void checkWebinars() {
-        assertThat(coursesPage.search.getLabelCounter("Вебинары"), allOf(
-                greaterThan(180),
-                lessThan(300))
+    Stream<Arguments> stringAndMatcherProvider(){
+        return Stream.of(
+                Arguments.of("Профессии", greaterThanOrEqualTo(2)),
+                Arguments.of("Курсы", greaterThan(15)),
+                Arguments.of("Вебинары", allOf(
+                        greaterThan(180),
+                        lessThan(300)
+                )),
+                Arguments.of("Блоги", greaterThan(300)),
+                Arguments.of("Форумы", not(350)),
+                Arguments.of("Тесты", not(0)),
+                Arguments.of("Geekbrains", is(true))
         );
     }
 
-    @DisplayName("4 ==> Число блогов > 300")
-    @Test
-    @Order(4)
-    void checkBlogs() {
-        assertThat(coursesPage.search.getLabelCounter("Блоги"), greaterThan(300));
-    }
-
-    @DisplayName("5 ==> Число форумов не 350")
-    @Test
-    @Order(5)
-    void checkPosts() {
-        assertThat(coursesPage.search.getLabelCounter("Форумы"), not(350));
-    }
-
-    @DisplayName("6 ==> Число тестов не 0")
-    @Test
-    @Order(6)
-    void checkTest() {
-        assertThat(coursesPage.search.getLabelCounter("Тесты"), not(0));
-    }
-
-    @DisplayName("5 ==> В Проектах и компаниях отображается GeekBrains")
-    @Test
-    @Order(7)
-    void checkGeekbrainsLogoExist() {
-        assertThat(coursesPage.waitElementDisplayed(coursesPage.search.buttonCompaniesGeekbrains), is(true));
+    @AfterAll
+    protected void tearDown(){
+        super.tearDown();
     }
 }

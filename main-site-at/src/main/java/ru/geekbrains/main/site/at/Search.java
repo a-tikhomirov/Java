@@ -1,71 +1,88 @@
 package ru.geekbrains.main.site.at;
 
+import org.hamcrest.Matcher;
 import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
+
 public class Search extends PageObject{
+    private Page page;
 
     @FindBy(css = "input[class=\"search-panel__search-field\"]")
-    public WebElement inputSearch;
+    private WebElement inputSearch;
 
     @FindBy(css = "[class=\"search-page-tabs\"] [data-tab=\"professions\"] span")
-    public WebElement labelProfessionsCount;
+    private WebElement labelProfessionsCount;
 
     @FindBy(css = "[class=\"search-page-tabs\"] [data-tab=\"courses\"] span")
-    public WebElement labelCoursesCount;
+    private WebElement labelCoursesCount;
 
     @FindBy(css = "[class=\"search-page-tabs\"] [data-tab=\"webinars\"] span")
-    public WebElement labelWebinarsCount;
+    private WebElement labelWebinarsCount;
 
     @FindBy(css = "[class=\"search-page-tabs\"] [data-tab=\"blogs\"] span")
-    public WebElement labelBlogsCount;
+    private WebElement labelBlogsCount;
 
     @FindBy(css = "[class=\"search-page-tabs\"] [data-tab=\"forums\"] span")
-    public WebElement labelForumsCount;
+    private WebElement labelForumsCount;
 
     @FindBy(css = "[class=\"search-page-tabs\"] [data-tab=\"tests\"] span")
-    public WebElement labelTestsCount;
+    private WebElement labelTestsCount;
 
     @FindBy(css = "[class*=\"search-page-block\"] [class=\"company-item__pic\"] [alt*=\"GeekBrains\"]")
-    public WebElement buttonCompaniesGeekbrains;
+    private WebElement buttonCompaniesGeekbrains;
 
-    public Search(WebDriver driver) {
+    public Search(WebDriver driver, Page page) {
         super(driver);
+        this.page = page;
     }
 
-    public int getLabelCounter(String name) {
-        int counter = -1;
+    public Search enterSearchText(String text){
+        waitElementDisplayed(inputSearch);
+        inputSearch.sendKeys(text);
+        return this;
+    }
+
+    public Search checkElement(String name, Matcher matcher) {
+        Object actual = null;
         switch (name){
             case "Профессии": {
-                counter = getElementTextToInt(labelProfessionsCount);
+                actual = getElementTextToInt(labelProfessionsCount);
                 break;
             }
             case "Курсы": {
-                counter = getElementTextToInt(labelCoursesCount);
+                actual = getElementTextToInt(labelCoursesCount);
                 break;
             }
             case "Вебинары": {
-                counter = getElementTextToInt(labelWebinarsCount);
+                actual = getElementTextToInt(labelWebinarsCount);
                 break;
             }
             case "Блоги": {
-                counter = getElementTextToInt(labelBlogsCount);
+                actual = getElementTextToInt(labelBlogsCount);
                 break;
             }
             case "Форумы": {
-                counter = getElementTextToInt(labelForumsCount);
+                actual = getElementTextToInt(labelForumsCount);
                 break;
             }
             case "Тесты": {
-                counter = getElementTextToInt(labelTestsCount);
+                actual = getElementTextToInt(labelTestsCount);
+                break;
+            }
+            case "Geekbrains": {
+                actual = waitElementDisplayed(buttonCompaniesGeekbrains);
                 break;
             }
         }
-        if (counter == -1) {
+        if (actual == null) {
             throw new NotFoundException("Элемента " + name + " нет в классе " + getClass().getName());
         }
-        return counter;
+        assertThat(actual, matcher);
+        return this;
     }
 }

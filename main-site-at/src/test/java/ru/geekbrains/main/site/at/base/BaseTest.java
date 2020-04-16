@@ -1,24 +1,23 @@
 package ru.geekbrains.main.site.at.base;
 
-import org.junit.jupiter.api.*;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import ru.geekbrains.main.site.at.CoursesPage;
 
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 public class BaseTest {
     protected WebDriver driver;
-    protected CoursesPage coursesPage;
 
-    protected void setUp() {
+    protected void setUpDriver() {
+        //WebDriverManager.chromedriver().setup();
         System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
 
-        ChromeOptions options  = new ChromeOptions();
+        ChromeOptions options = new ChromeOptions();
         options.setPageLoadStrategy(PageLoadStrategy.NONE);
         //options.addArguments("start-maximized");
         //options.addArguments("enable-automation");
@@ -39,8 +38,7 @@ public class BaseTest {
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
-    @AfterAll
-    void tearDown() {
+    protected void tearDown() {
         driver.quit();
     }
 }
