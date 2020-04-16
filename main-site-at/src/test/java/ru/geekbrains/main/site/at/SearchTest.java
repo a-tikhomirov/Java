@@ -26,8 +26,8 @@ public class SearchTest extends BaseTest{
                 .enterSearchText("Java");
     }
 
-    @DisplayName("Проверка 'элементов'")
-    @ParameterizedTest(name = "{index} ==> Блок \"{0}\" соответствует условию \"{1}\"")
+    @DisplayName("Проверка элементов")
+    @ParameterizedTest(name = "{index} ==> Блок \"{0}\" условие \"{1}\"")
     @MethodSource("stringAndMatcherProvider")
     void checkSideBarNavigation(String elementName, Matcher matcher){
         searchPage.checkElement(elementName, matcher);

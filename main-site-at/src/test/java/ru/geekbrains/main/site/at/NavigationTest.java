@@ -8,21 +8,20 @@ import ru.geekbrains.main.site.at.base.BaseTest;
 
 import java.util.stream.Stream;
 
-@DisplayName("Проверка навигации")
+@DisplayName("Проверка элементов навигации sidebar страницы https://geekbrains.ru/career")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class NavigationTest extends BaseTest{
 
     @BeforeEach
     protected void SetUp(){
         super.setUpDriver();
+        driver.get("https://geekbrains.ru/career");
     }
 
-    @DisplayName("Проверка элементов навигации sidebar страницы https://geekbrains.ru/courses")
+    @DisplayName("Проверка элементов и заголовка Header, проверка элементов Footer")
     @ParameterizedTest(name = "{index} ==> Проверка перехода на страницу \"{0}\"...")
     @MethodSource("stringProvider")
     void checkSideBarNavigation(String navElementName){
-        driver.get("https://geekbrains.ru/career");
-
         PageFactory.initElements(driver, Page.class)
                 .getSidebar().clickButton(navElementName)
                 .getHeader().checkSection()

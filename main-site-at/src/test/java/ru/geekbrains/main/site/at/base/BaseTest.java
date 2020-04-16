@@ -14,8 +14,8 @@ public class BaseTest {
     protected WebDriver driver;
 
     protected void setUpDriver() {
-        //WebDriverManager.chromedriver().setup();
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
+        WebDriverManager.chromedriver().setup();
+        //System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
 
         ChromeOptions options = new ChromeOptions();
         options.setPageLoadStrategy(PageLoadStrategy.NONE);
