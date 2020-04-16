@@ -4,9 +4,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-
 public class Header extends PageObject {
     private Page page;
 
@@ -31,15 +28,17 @@ public class Header extends PageObject {
     }
 
     public Page checkSection(){
-        assertThat(elementDisplayed(section), is(true));
-        assertThat(elementDisplayed(buttonSearch), is(true));
-        assertThat(elementDisplayed(buttonLogin), is(true));
-        assertThat(elementDisplayed(buttonRegister), is(true));
+        checkElementsDisplayed(new WebElement[] {
+                section,
+                buttonSearch,
+                buttonLogin,
+                buttonRegister
+        });
         return page;
     }
 
-    public Page checkTitle(String title){
-        assertThat(getElementText(labelHeader), equalToCompressingWhiteSpace(title));
+    public Page checkTitle(String expectedTitle){
+        checkText(labelHeader, expectedTitle);
         return page;
     }
 

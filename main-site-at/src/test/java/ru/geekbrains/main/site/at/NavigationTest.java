@@ -9,7 +9,6 @@ import ru.geekbrains.main.site.at.base.BaseTest;
 import java.util.stream.Stream;
 
 @DisplayName("Проверка элементов навигации sidebar страницы https://geekbrains.ru/career")
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class NavigationTest extends BaseTest{
 
     @BeforeEach
@@ -30,7 +29,7 @@ public class NavigationTest extends BaseTest{
                 .getFooter().checkElementsText();
     }
 
-    Stream<String> stringProvider(){
+    static Stream<String> stringProvider(){
         return Stream.of("Курсы", "Вебинары", "Форум", "Блог", "Тесты", "Карьера");
     }
 

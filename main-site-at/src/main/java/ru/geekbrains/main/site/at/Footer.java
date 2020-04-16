@@ -3,8 +3,6 @@ package ru.geekbrains.main.site.at;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
 
 public class Footer extends PageObject {
     private Page page;
@@ -54,30 +52,32 @@ public class Footer extends PageObject {
     }
 
     public Page checkSection(){
-        assertThat(elementDisplayed(section), is(true));
-        assertThat(elementDisplayed(buttonFacebook), is(true));
-        assertThat(elementDisplayed(buttonVK), is(true));
-        assertThat(elementDisplayed(buttonInstagramm), is(true));
-        assertThat(elementDisplayed(buttonYoutube), is(true));
-        assertThat(elementDisplayed(buttonTelegram), is(true));
-        assertThat(elementDisplayed(buttonFeedbacks), is(true));
-        assertThat(elementDisplayed(buttonHelp), is(true));
-        assertThat(elementDisplayed(buttonAbout), is(true));
-        assertThat(elementDisplayed(buttonLiscense), is(true));
-        assertThat(elementDisplayed(buttonCareer), is(true));
-        assertThat(elementDisplayed(buttonForBusiness), is(true));
-        assertThat(elementDisplayed(buttonPhone), is(true));
+        checkElementsDisplayed(new WebElement[] {
+                section,
+                buttonFacebook,
+                buttonVK,
+                buttonInstagramm,
+                buttonYoutube,
+                buttonTelegram,
+                buttonFeedbacks,
+                buttonHelp,
+                buttonAbout,
+                buttonLiscense,
+                buttonCareer,
+                buttonForBusiness,
+                buttonPhone
+        });
         return page;
     }
 
     public Page checkElementsText(){
-        assertThat(getElementText(buttonFeedbacks), equalToCompressingWhiteSpace("Отзывы"));
-        assertThat(getElementText(buttonHelp), equalToCompressingWhiteSpace("Помощь"));
-        assertThat(getElementText(buttonAbout), equalToCompressingWhiteSpace("О проекте"));
-        assertThat(getElementText(buttonLiscense), equalToCompressingWhiteSpace("Лицензия"));
-        assertThat(getElementText(buttonCareer), equalToCompressingWhiteSpace("Вакансии"));
-        assertThat(getElementText(buttonForBusiness), equalToCompressingWhiteSpace("Компаниям"));
-        assertThat(getElementText(buttonPhone), equalToCompressingWhiteSpace("8 800 700-68-41"));
+        checkText(buttonFeedbacks,"Отзывы");
+        checkText(buttonHelp,"Помощь");
+        checkText(buttonAbout,"О проекте");
+        checkText(buttonLiscense,"Лицензия");
+        checkText(buttonCareer,"Вакансии");
+        checkText(buttonForBusiness,"Компаниям");
+        checkText(buttonPhone,"8 800 700-68-41");
         return page;
     }
 }

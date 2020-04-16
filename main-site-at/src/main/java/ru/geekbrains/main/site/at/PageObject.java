@@ -6,6 +6,9 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
+
 public class PageObject {
     protected WebDriver driver;
     protected WebDriverWait wait;
@@ -25,6 +28,12 @@ public class PageObject {
             displayed = false;
         }
         return displayed;
+    }
+
+    protected void checkElementsDisplayed(WebElement[] elements){
+        for (WebElement element : elements) {
+            assertThat(elementDisplayed(element),is(true));
+        }
     }
 
     protected boolean waitElementDisplayed(WebElement element){
@@ -49,6 +58,10 @@ public class PageObject {
     protected String getElementText(WebElement element){
         wait.until(ExpectedConditions.visibilityOf(element));
         return element.getText();
+    }
+
+    protected void checkText(WebElement element, String expectedText){
+        assertThat(getElementText(element), equalToCompressingWhiteSpace(expectedText));
     }
 
     protected int getElementTextToInt(WebElement element){
