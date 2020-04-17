@@ -77,9 +77,9 @@ public class Search extends PageObject{
                 actual = waitElementDisplayed(buttonCompaniesGeekbrains);
                 break;
             }
-        }
-        if (actual == null) {
-            throw new NotFoundException("Элемента " + name + " нет в классе " + getClass().getName());
+            default: {
+                throw new NotFoundException("Элемента " + name + " нет в классе " + getClass().getName());
+            }
         }
         assertThat(actual, matcher);
         return this;
