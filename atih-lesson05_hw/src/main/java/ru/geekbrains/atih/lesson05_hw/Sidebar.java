@@ -58,9 +58,9 @@ public class Sidebar extends PageObject {
                 button = buttonCareer;
                 break;
             }
-        }
-        if (button == null) {
-            throw new NotFoundException("Элемента " + name + " нет в классе " + getClass().getName());
+            default: {
+                throw new NotFoundException("Элемента " + name + " нет в классе " + getClass().getName());
+            }
         }
         buttonClick(button);
         return page;
