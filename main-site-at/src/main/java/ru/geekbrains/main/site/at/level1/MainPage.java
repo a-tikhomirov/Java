@@ -1,4 +1,4 @@
-package ru.geekbrains.main.site.at.level1.main;
+package ru.geekbrains.main.site.at.level1;
 
 import org.openqa.selenium.WebDriver;
 import ru.geekbrains.main.site.at.common.*;

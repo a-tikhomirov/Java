@@ -7,7 +7,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.support.PageFactory;
 import ru.geekbrains.main.site.at.base.BaseTest;
-import ru.geekbrains.main.site.at.level2.career.CareerPage;
+import ru.geekbrains.main.site.at.level2.CareerPage;
 import ru.geekbrains.main.site.at.common.Search;
 
 import java.util.stream.Stream;

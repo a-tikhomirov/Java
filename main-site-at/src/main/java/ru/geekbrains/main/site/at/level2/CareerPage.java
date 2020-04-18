@@ -1,4 +1,4 @@
-package ru.geekbrains.main.site.at.level2.career;
+package ru.geekbrains.main.site.at.level2;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

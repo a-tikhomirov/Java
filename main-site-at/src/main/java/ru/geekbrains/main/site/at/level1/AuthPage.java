@@ -5,7 +5,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import ru.geekbrains.main.site.at.common.PageObject;
-import ru.geekbrains.main.site.at.level1.main.MainPage;
 
 public class AuthPage extends PageObject {
 

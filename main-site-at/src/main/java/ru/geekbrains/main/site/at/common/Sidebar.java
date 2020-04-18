@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import ru.geekbrains.main.site.at.level2.career.CareerPage;
+import ru.geekbrains.main.site.at.level2.CareerPage;
 import ru.geekbrains.main.site.at.level2.courses.CoursesPage;
 
 public class Sidebar<T> extends PageObject {
