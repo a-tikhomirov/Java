@@ -22,6 +22,7 @@ public class FiltersTest extends BaseTest {
         coursesPage = PageFactory.initElements(driver, AuthPage.class)
                 .loginAsCustomer("hao17583@bcaoo.com", "hao17583")
                 .getSidebar().clickCourses()
+                .getHeader().checkTitle("Курсы")
                 .clickNavCourses()
                 .clickCheckbox("Бесплатные")
                 .clickCheckbox("Тестирование");
