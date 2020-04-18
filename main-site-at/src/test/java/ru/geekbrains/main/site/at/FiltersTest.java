@@ -21,7 +21,8 @@ public class FiltersTest extends BaseTest {
         driver.get("https://geekbrains.ru/login");
         coursesPage = (CoursesPage) PageFactory.initElements(driver, AuthPage.class)
                 .loginAsCustomer("hao17583@bcaoo.com", "hao17583")
-                .getSidebar().clickButton("Курсы");
+                .getSidebar().clickButton("Курсы")
+                .getHeader().checkTitle("Курсы");
         coursesPage
                 .getHeaderNavigationTab().clickButton("Курсы")
                 .getFiltersForm().clickCheckbox("Бесплатные")
