@@ -4,6 +4,7 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.support.PageFactory;
+import ru.geekbrains.atih.lesson05_hw.level2.career.CareerPage;
 import ru.geekbrains.atih.lesson05_hw.base.BaseTest;
 
 import java.util.stream.Stream;
@@ -21,7 +22,7 @@ public class NavigationTest extends BaseTest{
     @ParameterizedTest(name = "{index} ==> Проверка перехода на страницу \"{0}\"...")
     @MethodSource("stringProvider")
     void checkSideBarNavigation(String navElementName){
-        PageFactory.initElements(driver, Page.class)
+        PageFactory.initElements(driver, CareerPage.class)
                 .getSidebar().clickButton(navElementName)
                 .getHeader().checkSection()
                 .getHeader().checkTitle(navElementName)

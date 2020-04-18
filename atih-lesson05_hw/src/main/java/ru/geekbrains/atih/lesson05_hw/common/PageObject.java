@@ -1,4 +1,4 @@
-package ru.geekbrains.atih.lesson05_hw;
+package ru.geekbrains.atih.lesson05_hw.common;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,7 +15,7 @@ public class PageObject {
 
     public PageObject(WebDriver driver){
         this.driver = driver;
-        wait = new WebDriverWait(driver, 30);
+        wait = new WebDriverWait(driver, 15);
         PageFactory.initElements(driver, this);
     }
 
@@ -48,11 +48,14 @@ public class PageObject {
     }
 
     protected void buttonClick(WebElement button){
-        if (button != null) {
-            waitElementDisplayed(button);
-            wait.until(ExpectedConditions.elementToBeClickable(button));
-            button.click();
-        }
+        wait.until(ExpectedConditions.elementToBeClickable(button));
+        button.click();
+    }
+
+    protected void checkBoxClick(WebElement checkBox){
+        boolean initialState = checkBox.isSelected();
+        checkBox.click();
+        wait.until(ExpectedConditions.elementSelectionStateToBe(checkBox, !initialState));
     }
 
     protected String getElementText(WebElement element){
@@ -66,5 +69,10 @@ public class PageObject {
 
     protected int getElementTextToInt(WebElement element){
         return Integer.valueOf(getElementText(element));
+    }
+
+    protected void enterText(WebElement element, String text){
+        waitElementDisplayed(element);
+        element.sendKeys(text);
     }
 }

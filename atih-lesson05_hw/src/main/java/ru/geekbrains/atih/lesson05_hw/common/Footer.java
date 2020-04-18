@@ -1,11 +1,12 @@
-package ru.geekbrains.atih.lesson05_hw;
+package ru.geekbrains.atih.lesson05_hw.common;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
-public class Footer extends PageObject {
-    private Page page;
+public abstract class Footer<T> extends PageObject {
+    private Class<T> ownerPageClass;
 
     @FindBy(css = "[class=\"site-footer\"]")
     private WebElement section;
@@ -46,12 +47,12 @@ public class Footer extends PageObject {
     @FindBy(css = "[class=\"site-footer__phone\"]")
     private WebElement buttonPhone;
 
-    public Footer(WebDriver driver, Page page) {
+    public Footer(WebDriver driver, Class<T> ownerPageClass) {
         super(driver);
-        this.page = page;
+        this.ownerPageClass = ownerPageClass;
     }
 
-    public Page checkSection(){
+    public T checkSection(){
         checkElementsDisplayed(new WebElement[] {
                 section,
                 buttonFacebook,
@@ -67,10 +68,10 @@ public class Footer extends PageObject {
                 buttonForBusiness,
                 buttonPhone
         });
-        return page;
+        return PageFactory.initElements(driver, ownerPageClass);
     }
 
-    public Page checkElementsText(){
+    public T checkElementsText(){
         checkText(buttonFeedbacks,"Отзывы");
         checkText(buttonHelp,"Помощь");
         checkText(buttonAbout,"О проекте");
@@ -78,6 +79,6 @@ public class Footer extends PageObject {
         checkText(buttonCareer,"Вакансии");
         checkText(buttonForBusiness,"Компаниям");
         checkText(buttonPhone,"8 800 700-68-41");
-        return page;
+        return PageFactory.initElements(driver, ownerPageClass);
     }
 }

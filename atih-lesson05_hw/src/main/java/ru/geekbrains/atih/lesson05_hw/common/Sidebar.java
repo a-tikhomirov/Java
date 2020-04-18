@@ -1,12 +1,14 @@
-package ru.geekbrains.atih.lesson05_hw;
+package ru.geekbrains.atih.lesson05_hw.common;
 
 import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import ru.geekbrains.atih.lesson05_hw.level2.courses.CoursesPage;
 
-public class Sidebar extends PageObject {
-    private Page page;
+public abstract class Sidebar<T> extends PageObject {
+    private Class<T> ownerPageClass;
 
     @FindBy(css = "[class*=\"main-page-hidden\"] [href=\"/courses\"]")
     private WebElement buttonCourses;
@@ -26,12 +28,12 @@ public class Sidebar extends PageObject {
     @FindBy(css = "[class*=\"main-page-hidden\"] [href=\"/career\"]")
     private WebElement buttonCareer;
 
-    protected Sidebar(WebDriver driver, Page page) {
+    public Sidebar(WebDriver driver, Class<T> ownerPageClass) {
         super(driver);
-        this.page = page;
+        this.ownerPageClass = ownerPageClass;
     }
 
-    public Page clickButton(String name){
+    public T clickButton(String name){
         WebElement button = null;
         switch (name){
             case "Курсы": {
@@ -63,6 +65,11 @@ public class Sidebar extends PageObject {
             }
         }
         buttonClick(button);
-        return page;
+        return PageFactory.initElements(driver, ownerPageClass);
+    }
+
+    public CoursesPage clickCourses(){
+        buttonClick(buttonCourses);
+        return PageFactory.initElements(driver, CoursesPage.class);
     }
 }
