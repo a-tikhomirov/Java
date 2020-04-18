@@ -20,8 +20,8 @@ public class FiltersForm extends PageObject {
         this.coursesPage = coursesPage;
     }
 
-    public CoursesPage clickCheckbox(String name){
-        WebElement checkBox = null;
+    private WebElement getFilter(String name) {
+        WebElement checkBox;
         switch (name){
             case "Бесплатные": {
                 checkBox = checkBoxFilterFree;
@@ -35,7 +35,19 @@ public class FiltersForm extends PageObject {
                 throw new NotFoundException("Элемента " + name + " нет в классе " + getClass().getName());
             }
         }
-        checkBoxClick(checkBox);
+        return checkBox;
+    }
+
+    public CoursesPage clickCheckbox(String name){
+        checkBoxClick(getFilter(name));
+        return coursesPage;
+    }
+
+    public CoursesPage setFilters(boolean state, String ...filters){
+        for (String filter:filters) {
+            WebElement checkbox = getFilter(filter);
+            if (checkbox.isSelected() != state) checkBoxClick(checkbox);
+        }
         return coursesPage;
     }
 }

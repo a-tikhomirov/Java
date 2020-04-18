@@ -25,8 +25,7 @@ public class FiltersTest extends BaseTest {
                 .getHeader().checkTitle("Курсы"))
 
                 .getHeaderNavigationTab().clickButton("Курсы")
-                .getFiltersForm().clickCheckbox("Бесплатные")
-                .getFiltersForm().clickCheckbox("Тестирование");
+                .getFiltersForm().setFilters(true, "Бесплатные", "Тестирование");
     }
 
     @DisplayName("Проверка результатов фильтрации")
