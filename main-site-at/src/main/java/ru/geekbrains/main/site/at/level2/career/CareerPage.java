@@ -1,14 +1,14 @@
-package ru.geekbrains.main.site.at;
+package ru.geekbrains.main.site.at.level2.career;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import ru.geekbrains.main.site.at.common.PageObject;
 
-public class Page extends PageObject {
+public class CareerPage extends PageObject {
     private Header header;
     private Footer footer;
     private Sidebar sidebar;
-    private Search search;
 
     public Header getHeader() {
         return header;
@@ -22,22 +22,17 @@ public class Page extends PageObject {
         return sidebar;
     }
 
-    public Search getSearch() {
-        return search;
-    }
-
     @FindBy(css = "div button svg[class=\"svg-icon icon-popup-close-button \"]")
     private WebElement buttonPopUpClose;
 
-    public Page(WebDriver driver) {
+    public CareerPage(WebDriver driver) {
         super(driver);
-        footer = new Footer(driver, this);
-        sidebar = new Sidebar(driver, this);
-        header = new Header(driver, this);
-        search = new Search(driver, this);
+        footer = new Footer(driver);
+        sidebar = new Sidebar(driver);
+        header = new Header(driver);
     }
 
-    public Page popUpClose(){
+    public CareerPage popUpClose(){
         if (elementDisplayed(buttonPopUpClose)) buttonPopUpClose.click();
         return this;
     }

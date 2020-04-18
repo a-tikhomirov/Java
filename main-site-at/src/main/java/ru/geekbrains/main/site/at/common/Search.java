@@ -1,4 +1,4 @@
-package ru.geekbrains.main.site.at;
+package ru.geekbrains.main.site.at.common;
 
 import org.hamcrest.Matcher;
 import org.openqa.selenium.NotFoundException;
@@ -8,9 +8,7 @@ import org.openqa.selenium.support.FindBy;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class Search extends PageObject{
-    private Page page;
-
+public class Search extends PageObject {
     @FindBy(css = "input[class=\"search-panel__search-field\"]")
     private WebElement inputSearch;
 
@@ -35,14 +33,12 @@ public class Search extends PageObject{
     @FindBy(css = "[class*=\"search-page-block\"] [class=\"company-item__pic\"] [alt*=\"GeekBrains\"]")
     private WebElement buttonCompaniesGeekbrains;
 
-    public Search(WebDriver driver, Page page) {
+    public Search(WebDriver driver) {
         super(driver);
-        this.page = page;
     }
 
     public Search enterSearchText(String text){
-        waitElementDisplayed(inputSearch);
-        inputSearch.sendKeys(text);
+        enterText(inputSearch, text);
         return this;
     }
 

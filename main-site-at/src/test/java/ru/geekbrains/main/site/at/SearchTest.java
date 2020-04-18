@@ -7,6 +7,8 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.support.PageFactory;
 import ru.geekbrains.main.site.at.base.BaseTest;
+import ru.geekbrains.main.site.at.level2.career.CareerPage;
+import ru.geekbrains.main.site.at.common.Search;
 
 import java.util.stream.Stream;
 
@@ -21,7 +23,7 @@ public class SearchTest extends BaseTest{
     protected void setUp(){
         super.setUpDriver();
         driver.get("https://geekbrains.ru/career");
-        searchPage = PageFactory.initElements(driver, Page.class)
+        searchPage = PageFactory.initElements(driver, CareerPage.class)
                 .getHeader().clickSearch()
                 .enterSearchText("Java");
     }

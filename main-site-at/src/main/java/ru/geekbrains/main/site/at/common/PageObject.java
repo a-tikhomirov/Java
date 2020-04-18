@@ -1,4 +1,4 @@
-package ru.geekbrains.main.site.at;
+package ru.geekbrains.main.site.at.common;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -48,11 +48,14 @@ public class PageObject {
     }
 
     protected void buttonClick(WebElement button){
-        if (button != null) {
-            waitElementDisplayed(button);
-            wait.until(ExpectedConditions.elementToBeClickable(button));
-            button.click();
-        }
+        wait.until(ExpectedConditions.elementToBeClickable(button));
+        button.click();
+    }
+
+    protected void checkBoxClick(WebElement checkBox){
+        boolean initialState = checkBox.isSelected();
+        checkBox.click();
+        wait.until(ExpectedConditions.elementSelectionStateToBe(checkBox, !initialState));
     }
 
     protected String getElementText(WebElement element){
@@ -66,5 +69,10 @@ public class PageObject {
 
     protected int getElementTextToInt(WebElement element){
         return Integer.valueOf(getElementText(element));
+    }
+
+    protected void enterText(WebElement element, String text){
+        waitElementDisplayed(element);
+        element.sendKeys(text);
     }
 }
