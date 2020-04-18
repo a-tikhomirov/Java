@@ -8,8 +8,9 @@ import org.openqa.selenium.support.PageFactory;
 import ru.geekbrains.main.site.at.level2.career.CareerPage;
 import ru.geekbrains.main.site.at.level2.courses.CoursesPage;
 
-public abstract class Sidebar<T> extends PageObject {
+public class Sidebar<T> extends PageObject {
     private Class<T> ownerPageClass;
+    private boolean authorized;
 
     @FindBy(css = "[class*=\"main-page-hidden\"] [href=\"/courses\"]")
     private WebElement buttonCourses;
@@ -29,17 +30,18 @@ public abstract class Sidebar<T> extends PageObject {
     @FindBy(css = "[class*=\"main-page-hidden\"] [href=\"/career\"]")
     private WebElement buttonCareer;
 
-    public Sidebar(WebDriver driver, Class<T> ownerPageClass) {
+    public Sidebar(WebDriver driver, Class<T> ownerPageClass, boolean authorized) {
         super(driver);
         this.ownerPageClass = ownerPageClass;
+        this.authorized = authorized;
     }
 
-    public T clickButton(String name){
-        WebElement button = null;
+    public Page clickButton(String name){
+        WebElement button;
         switch (name){
             case "Курсы": {
-                button = buttonCourses;
-                break;
+                buttonClick(buttonCourses);
+                return new CoursesPage(driver, authorized);
             }
             case "Вебинары": {
                 button = buttonEvents;
@@ -58,19 +60,14 @@ public abstract class Sidebar<T> extends PageObject {
                 break;
             }
             case "Карьера": {
-                button = buttonCareer;
-                break;
+                buttonClick(buttonCareer);
+                return new CareerPage(driver, authorized);
             }
             default: {
                 throw new NotFoundException("Элемента " + name + " нет в классе " + getClass().getName());
             }
         }
         buttonClick(button);
-        return PageFactory.initElements(driver, ownerPageClass);
-    }
-
-    public CoursesPage clickCourses(){
-        buttonClick(buttonCourses);
-        return PageFactory.initElements(driver, CoursesPage.class);
+        return (Page) PageFactory.initElements(driver, ownerPageClass);
     }
 }

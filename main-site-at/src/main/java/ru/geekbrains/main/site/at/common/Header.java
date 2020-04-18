@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public abstract class Header<T> extends PageObject {
-    private Class<T> ownerPageClass;
+    protected Class<T> ownerPageClass;
 
     @FindBy(css = "[id=\"top-menu\"]")
     protected WebElement section;
@@ -22,9 +22,17 @@ public abstract class Header<T> extends PageObject {
         this.ownerPageClass = ownerPageClass;
     }
 
-    public T checkTitle(String expectedTitle){
+    public Page checkSection() {
+        checkElementsDisplayed(new WebElement[] {
+                section,
+                buttonSearch
+        });
+        return (Page) PageFactory.initElements(driver, ownerPageClass);
+    }
+
+    public Page checkTitle(String expectedTitle){
         checkText(labelHeader, expectedTitle);
-        return PageFactory.initElements(driver, ownerPageClass);
+        return (Page) PageFactory.initElements(driver, ownerPageClass);
     }
 
     public Search clickSearch(){

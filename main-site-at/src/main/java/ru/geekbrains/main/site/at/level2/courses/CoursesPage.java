@@ -2,57 +2,56 @@ package ru.geekbrains.main.site.at.level2.courses;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
-import ru.geekbrains.main.site.at.common.PageObject;
+import ru.geekbrains.main.site.at.common.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-public class CoursesPage extends PageObject {
+public class CoursesPage extends PageObject implements Page {
     private Header header;
+    private Footer footer;
+    private Sidebar sidebar;
+
+    private HeaderNavigationTab headerNavigationTab;
+    private FiltersForm filtersForm;
 
     public Header getHeader() {
         return header;
     }
 
-    @FindBy(css = "[class*=\"nav nav-tabs\"] [href=\"#cour-new\"]")
-    private WebElement buttonNavCourses;
+    public Footer getFooter() {
+        return footer;
+    }
 
-    @FindBy(css = "input[id=\"filter-0\"]")
-    private WebElement checkBoxFilterFree;
+    public Sidebar getSidebar() {
+        return sidebar;
+    }
 
-    @FindBy(css = "input[id=\"filter-9\"]")
-    private WebElement checkBoxFilterQA;
+    public HeaderNavigationTab getHeaderNavigationTab() {
+        return headerNavigationTab;
+    }
+
+    public FiltersForm getFiltersForm() {
+        return filtersForm;
+    }
 
     @FindBy(css = "div[id=\"cour-new\"]")
     private WebElement divCourses;
 
-    public CoursesPage(WebDriver driver) {
+    public CoursesPage(WebDriver driver, boolean authorized) {
         super(driver);
-        header = new Header(driver);
+        header = authorized?
+                new HeaderAuth(driver, CoursesPage.class):
+                new HeaderNoAuth(driver, CoursesPage.class);
+        footer = new Footer(driver, CoursesPage.class);
+        sidebar = new Sidebar(driver, CoursesPage.class, authorized);
+
+        headerNavigationTab = new HeaderNavigationTab(driver, this);
+        filtersForm = new FiltersForm(driver, this);
     }
 
-    public CoursesPage clickNavCourses() {
-        buttonClick(buttonNavCourses);
-        return this;
-    }
-
-    public CoursesPage clickCheckbox(String name){
-        WebElement checkBox = null;
-        switch (name){
-            case "Бесплатные": {
-                checkBox = checkBoxFilterFree;
-                break;
-            }
-            case "Тестирование": {
-                checkBox = checkBoxFilterQA;
-                break;
-            }
-            default: {
-                throw new NotFoundException("Элемента " + name + " нет в классе " + getClass().getName());
-            }
-        }
-        checkBoxClick(checkBox);
-        return this;
+    public CoursesPage(WebDriver driver) {
+        this(driver, false);
     }
 
     public CoursesPage checkCoursesForText(String text){

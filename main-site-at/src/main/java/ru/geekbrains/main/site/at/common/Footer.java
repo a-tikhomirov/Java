@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public abstract class Footer<T> extends PageObject {
+public class Footer<T> extends PageObject {
     private Class<T> ownerPageClass;
 
     @FindBy(css = "[class=\"site-footer\"]")
@@ -52,7 +52,7 @@ public abstract class Footer<T> extends PageObject {
         this.ownerPageClass = ownerPageClass;
     }
 
-    public T checkSection(){
+    public Page checkSection(){
         checkElementsDisplayed(new WebElement[] {
                 section,
                 buttonFacebook,
@@ -68,10 +68,10 @@ public abstract class Footer<T> extends PageObject {
                 buttonForBusiness,
                 buttonPhone
         });
-        return PageFactory.initElements(driver, ownerPageClass);
+        return (Page) PageFactory.initElements(driver, ownerPageClass);
     }
 
-    public T checkElementsText(){
+    public Page checkElementsText(){
         checkText(buttonFeedbacks,"Отзывы");
         checkText(buttonHelp,"Помощь");
         checkText(buttonAbout,"О проекте");
@@ -79,6 +79,6 @@ public abstract class Footer<T> extends PageObject {
         checkText(buttonCareer,"Вакансии");
         checkText(buttonForBusiness,"Компаниям");
         checkText(buttonPhone,"8 800 700-68-41");
-        return PageFactory.initElements(driver, ownerPageClass);
+        return (Page) PageFactory.initElements(driver, ownerPageClass);
     }
 }

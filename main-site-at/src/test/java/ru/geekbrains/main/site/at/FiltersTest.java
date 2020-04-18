@@ -19,12 +19,13 @@ public class FiltersTest extends BaseTest {
     protected void SetUp(){
         super.setUpDriver();
         driver.get("https://geekbrains.ru/login");
-        coursesPage = PageFactory.initElements(driver, AuthPage.class)
+        coursesPage = (CoursesPage) PageFactory.initElements(driver, AuthPage.class)
                 .loginAsCustomer("hao17583@bcaoo.com", "hao17583")
-                .getSidebar().clickCourses()
-                .clickNavCourses()
-                .clickCheckbox("Бесплатные")
-                .clickCheckbox("Тестирование");
+                .getSidebar().clickButton("Курсы");
+        coursesPage
+                .getHeaderNavigationTab().clickButton("Курсы")
+                .getFiltersForm().clickCheckbox("Бесплатные")
+                .getFiltersForm().clickCheckbox("Тестирование");
     }
 
     @DisplayName("Проверка результатов фильтрации")

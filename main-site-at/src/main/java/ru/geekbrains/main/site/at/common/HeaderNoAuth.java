@@ -1,29 +1,29 @@
-package ru.geekbrains.main.site.at.level2.career;
+package ru.geekbrains.main.site.at.common;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class Header extends ru.geekbrains.main.site.at.common.Header<CareerPage> {
-
+public class HeaderNoAuth<T> extends Header {
     @FindBy(css = "[class*=\"gb-header\"] [href=\"/login\"]")
     private WebElement buttonLogin;
 
     @FindBy(css = "[class*=\"gb-header\"] [href=\"/register\"]")
     private WebElement buttonRegister;
 
-    public Header(WebDriver driver) {
-        super(driver, CareerPage.class);
+    public HeaderNoAuth(WebDriver driver, Class<T> ownerPageClass) {
+        super(driver, ownerPageClass);
     }
 
-    public CareerPage checkSection(){
+    @Override
+    public Page checkSection() {
         checkElementsDisplayed(new WebElement[] {
                 section,
                 buttonSearch,
                 buttonLogin,
                 buttonRegister
         });
-        return PageFactory.initElements(driver, CareerPage.class);
+        return (Page) PageFactory.initElements(driver, ownerPageClass);
     }
 }
